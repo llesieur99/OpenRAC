@@ -58,6 +58,8 @@ pub mod hook_ids;
 pub mod index;
 pub mod index_apply;
 pub mod install;
+#[cfg(feature = "ios-bridge")]
+pub mod ios;
 pub mod jobs;
 pub mod launcher_log;
 pub mod library;
