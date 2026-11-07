@@ -53,9 +53,13 @@ def install(app, framework, root):
         target = tools / file.relative_to(root)
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(file, target)
-    # The interface is shared verbatim. Disc-derived promotional game pictures are not shipped.
+    # Reuse the desktop catalogue's small thumbnails; keep large backgrounds out of this bundle.
     shutil.copytree(root / "launcher/dist", app / "launcher-dist", dirs_exist_ok=True,
                     ignore=shutil.ignore_patterns("img", "mock-*.js"))
+    pictures = app / "launcher-dist/img"
+    pictures.mkdir(parents=True, exist_ok=True)
+    for thumbnail in (root / "launcher/dist/img").glob("*-thumb.webp"):
+        shutil.copy2(thumbnail, pictures / thumbnail.name)
     shutil.copy2(app.parent / "ios-engines.json", app / "engines.json")
     (tools / "STANDALONE").write_text("OpenRAC's bundled disc preparation tools. No game data.\n")
     forbidden = {".iso", ".chd", ".elf", ".glb", ".wad", ".vag"}

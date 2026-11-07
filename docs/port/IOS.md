@@ -61,8 +61,9 @@ replaced copies remain recoverable in Documents. No existing save is replaced.
 
 The import backend also accepts the desktop launcher's prepared
 `active/rac1/data`: it must contain the boot file under `iso_data/rac1` and
-the exported levels under `port/ntsc`. Only app code, libraries and notices
-are packaged in the public bundle; the packager rejects disc and asset files.
+the exported levels under `port/ntsc`. App code, libraries, notices and the same
+small catalogue thumbnails as the desktop launcher are packaged in the public
+bundle. Retail discs and extracted gameplay data are rejected by the packager.
 
 For device development, `devicectl device copy to` can transfer the same
 folder to `Documents/data` in the app's data container. Wait for the copy to
