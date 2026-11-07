@@ -25,6 +25,23 @@ describe("native iOS bridge", () => {
     expect(sent[1]).toMatchObject({ command: "install_game", args: { game: "rac1" } });
   });
 
+  it("sends a plain snapshot of nested reactive state to WebKit", async () => {
+    const scope = new Proxy({ kind: "version", key: "rac1/ntsc" }, {});
+    const postMessage = vi.fn();
+    const native = {
+      webkit: { messageHandlers: { openrac: { postMessage } } },
+      __openracReply: undefined as ((id: number, ok: boolean, value: unknown) => void) | undefined,
+    };
+    vi.stubGlobal("window", native);
+    const result = iosInvoke("run_action", { scope, id: "play" });
+    const request = postMessage.mock.calls[0]?.[0] as { id: number; args: { scope: typeof scope } };
+    expect(request.args.scope).not.toBe(scope);
+    scope.key = "rac2/ntsc";
+    expect(request.args.scope.key).toBe("rac1/ntsc");
+    native.__openracReply?.(request.id, true, null);
+    await result;
+  });
+
   it("filters native events and removes the listener when its page leaves", async () => {
     const target = new EventTarget();
     vi.stubGlobal("window", target);

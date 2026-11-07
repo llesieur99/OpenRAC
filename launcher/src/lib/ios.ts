@@ -28,7 +28,14 @@ export function iosInvoke<T>(command: string, args?: unknown): Promise<T> {
       },
       reject,
     });
-    native.webkit.messageHandlers.openrac.postMessage({ id, command, args: args ?? {} });
+    try {
+      // WebKit must receive plain JSON, including nested Svelte state proxies such as Scope.
+      const request: unknown = JSON.parse(JSON.stringify({ id, command, args: args ?? {} }));
+      native.webkit.messageHandlers.openrac.postMessage(request);
+    } catch (error) {
+      pending.delete(id);
+      reject(error instanceof Error ? error : new Error(String(error)));
+    }
   });
 }
 

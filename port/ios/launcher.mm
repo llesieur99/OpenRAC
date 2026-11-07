@@ -110,6 +110,7 @@ static NSString* json(id object) {
         return;
     }
     if ([command isEqualToString:@"run_action"] && [args[@"id"] isEqualToString:@"play"]) {
+        NSLog(@"OpenRAC native launch: scope %@, engines %@", args[@"scope"], self.engines);
         if (self.importJob != 0) { [self reply:identifier ok:NO value:@"Wait for the disc import to finish first."]; return; }
         if (![self.engines containsObject:args[@"scope"][@"key"]]) { [self reply:identifier ok:NO value:@"This game's native iOS engine is not included yet."]; return; }
         [self reply:identifier ok:YES value:@{@"id":@0,@"title":@"Play",@"command":@"Native iOS engine",@"detached":@YES,@"output":NSNull.null}];

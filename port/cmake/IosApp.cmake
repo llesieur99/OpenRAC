@@ -28,8 +28,11 @@ function(openrac_ios_app target)
   target_link_libraries(${target} PRIVATE "-framework UIKit" "-framework UniformTypeIdentifiers" "-framework WebKit"
     "-framework Security" "${python_framework}" "${OPENRAC_IOS_LAUNCHER_CORE}")
   file(GLOB_RECURSE launcher_resources CONFIGURE_DEPENDS "${PROJECT_SOURCE_DIR}/../launcher/dist/*")
+  file(GLOB_RECURSE import_resources CONFIGURE_DEPENDS "${PROJECT_SOURCE_DIR}/ios/*.py"
+    "${PROJECT_SOURCE_DIR}/../editor/*.py" "${PROJECT_SOURCE_DIR}/../tools/openrac_common/*.py"
+    "${PROJECT_SOURCE_DIR}/../games/*/game.json")
   set_property(TARGET ${target} APPEND PROPERTY LINK_DEPENDS
-    ${launcher_resources} "${PROJECT_SOURCE_DIR}/ios/package.py" "${PROJECT_SOURCE_DIR}/ios/package_python.py")
+    ${launcher_resources} ${import_resources} "${PROJECT_SOURCE_DIR}/../launcher/actions.json")
   set_target_properties(${target} PROPERTIES
     MACOSX_BUNDLE TRUE
     OUTPUT_NAME OpenRAC

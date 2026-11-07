@@ -19,10 +19,10 @@ def prepare(data_folder, progress):
             raise ValueError("Cette version d’OpenRAC prend en charge le disque américain original (SCUS_971.99).")
         boot = disc.executable()
         (iso.parent / "SCUS_971.99").write_bytes(boot)
-        (iso.parent / "buildinfo.json").write_text(json.dumps({
+        (iso.parent / "buildinfo.json").write_text(json.dumps([{
             "serial": "SCUS_971.99", "version": "rac1/ntsc", "elf_sha1": disc.version.executable_sha1,
             "files": len(disc.files()), "image": "disc.iso",
-        }) + "\n")
+        }]) + "\n")
         for entry in disc.files():
             if entry["name"] == "SYSTEM.CNF":
                 (iso.parent / "SYSTEM.CNF").write_bytes(disc.read(entry["lba"] * SECTOR, entry["bytes"]))

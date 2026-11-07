@@ -36,7 +36,7 @@ fn read_library(runtime: &Runtime) -> Result<Value, String> {
                 .is_file();
             for action in &mut version.actions {
                 action.this_platform =
-                    supported && matches!(action.id.as_str(), "play" | "port-levels-export" | "port-levels-check");
+                    supported && matches!(action.id.as_str(), "play" | "port-levels" | "port-levels-check");
                 if !supported {
                     action.runnable = false;
                     continue;
@@ -46,7 +46,7 @@ fn read_library(runtime: &Runtime) -> Result<Value, String> {
                     action.missing_artifact = false;
                     action.runnable = ready;
                     action.blockers = if ready { vec![] } else { vec!["Import your own disc first".into()] };
-                } else if matches!(action.id.as_str(), "port-levels-export" | "port-levels-check") {
+                } else if matches!(action.id.as_str(), "port-levels" | "port-levels-check") {
                     action.done = ready;
                     action.runnable = false;
                 }
