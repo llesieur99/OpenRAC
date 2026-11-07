@@ -32,7 +32,8 @@ function(openrac_ios_app target)
     "${PROJECT_SOURCE_DIR}/../editor/*.py" "${PROJECT_SOURCE_DIR}/../tools/openrac_common/*.py"
     "${PROJECT_SOURCE_DIR}/../games/*/game.json")
   set_property(TARGET ${target} APPEND PROPERTY LINK_DEPENDS
-    ${launcher_resources} ${import_resources} "${PROJECT_SOURCE_DIR}/../launcher/actions.json")
+    ${launcher_resources} ${import_resources} "${PROJECT_SOURCE_DIR}/ios/make_assets.swift"
+    "${PROJECT_SOURCE_DIR}/../launcher/src-tauri/icons/icon.png" "${PROJECT_SOURCE_DIR}/../launcher/actions.json")
   set_target_properties(${target} PROPERTIES
     MACOSX_BUNDLE TRUE
     OUTPUT_NAME OpenRAC

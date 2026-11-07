@@ -2,6 +2,7 @@
 // Copyright (c) 2026 the OpenRAC contributors
 // Package the existing project icon as Apple's opaque, full-square iOS source icon.
 import AppKit
+import CoreGraphics
 import Foundation
 
 let source = URL(fileURLWithPath: CommandLine.arguments[1])
@@ -10,19 +11,21 @@ let files = FileManager.default
 let iconSet = output.appendingPathComponent("AppIcon.appiconset", isDirectory: true)
 try files.createDirectory(at: iconSet, withIntermediateDirectories: true)
 guard let image = NSImage(contentsOf: source),
-      let bitmap = NSBitmapImageRep(bitmapDataPlanes: nil, pixelsWide: 1024, pixelsHigh: 1024,
-          bitsPerSample: 8, samplesPerPixel: 3, hasAlpha: false, isPlanar: false,
-          colorSpaceName: .deviceRGB, bytesPerRow: 0, bitsPerPixel: 0) else {
+      let original = image.cgImage(forProposedRect: nil, context: nil, hints: nil),
+      let space = CGColorSpace(name: CGColorSpace.sRGB),
+      let context = CGContext(data: nil, width: 1024, height: 1024, bitsPerComponent: 8,
+          bytesPerRow: 0, space: space, bitmapInfo: CGImageAlphaInfo.noneSkipLast.rawValue) else {
     fatalError("Could not read the OpenRAC icon")
 }
-NSGraphicsContext.saveGraphicsState()
-NSGraphicsContext.current = NSGraphicsContext(bitmapImageRep: bitmap)
-let rect = NSRect(x: 0, y: 0, width: 1024, height: 1024)
-NSGradient(starting: NSColor(srgbRed: 0.95, green: 0.70, blue: 0.15, alpha: 1),
-           ending: NSColor(srgbRed: 0.87, green: 0.57, blue: 0.02, alpha: 1))!.draw(in: rect, angle: -90)
-image.draw(in: rect, from: .zero, operation: .sourceOver, fraction: 1)
-NSGraphicsContext.restoreGraphicsState()
-guard let png = bitmap.representation(using: .png, properties: [:]) else {
+// Quartz needs 32-bit RGB storage; the former 24-bit AppKit context was nil and drew nothing.
+// Ignore the fourth component so the App Store image remains opaque.
+let rect = CGRect(x: 0, y: 0, width: 1024, height: 1024)
+context.setFillColor(CGColor(srgbRed: 0.95, green: 0.70, blue: 0.15, alpha: 1))
+context.fill(rect)
+context.interpolationQuality = .high
+context.draw(original, in: rect)
+guard let rendered = context.makeImage(),
+      let png = NSBitmapImageRep(cgImage: rendered).representation(using: .png, properties: [:]) else {
     fatalError("Could not encode the OpenRAC icon")
 }
 try png.write(to: iconSet.appendingPathComponent("AppIcon.png"))
