@@ -13,6 +13,8 @@ func_00282F20	math	MiningThrustScale	wrap	Keep other vector scales unchanged; th
 func_0033ED88	menu	PlanetPlatinumCount	wrap	Optional GH per-planet platinum counter in the ship's planet page; original global statistics when disabled.
 func_0033B540	menu	GalacticMapLayoutUpdate	wrap	Optional GH map width and positions for v1.01; PAL and GH retain their original layout.
 func_0033B910	menu	GalacticMapLayoutDraw	wrap	Borrow the revised planet marker geometry during the v1.01 map draw and restore its table afterwards.
+func_002CBC58	menu	GalacticMapPanels	wrap	Borrow GH planet-list bounds only while drawing the v1.01 Galactic Map page.
+func_0028FAB8	menu	GalacticMapCrosshair	wrap	Limit the horizontal crosshair to the map edge only inside the revised Galactic Map draw.
 func_00131AE8	boot	rac2NativeEntry	host	crt0 at the ELF entry: _InitSys, FlushCache(0), main(argc, argv) without the PS2 thread and heap syscalls	int (void)
 func_00115340	libc	memcmp	host	symbol_addrs.txt name
 func_001153D4	libc	memcpy	host	symbol_addrs.txt name

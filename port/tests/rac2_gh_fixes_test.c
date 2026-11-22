@@ -6,6 +6,21 @@
 #define CHECK(c) do { if (!(c)) { fprintf(stderr, "%d: %s\n", __LINE__, #c); exit(1); } } while (0)
 
 int main(void) {
+    /* Reposition the divider without replacing the model or its bone bits. */
+    const uint32_t divider = 0xa0000000u | (3899u << 14) | ((uint32_t)-2781 & 0x3fffu);
+    const uint32_t moved = rac2_galaxy_frame_vertex(divider, 1, 4, 0.109687753f);
+    CHECK((moved & 0xf0000000u) == (divider & 0xf0000000u));
+    CHECK(((moved >> 14) & 0x3fffu) == 3899u);
+    CHECK((moved & 0x3fffu) == ((uint32_t)-1042 & 0x3fffu));
+    CHECK(rac2_galaxy_frame_vertex(divider, 0, 4, 0.109687753f) == divider);
+    CHECK(rac2_galaxy_frame_vertex(divider, 1, 0, 0.109687753f) == divider);
+    CHECK(rac2_galaxy_frame_vertex(divider, 1, 4, 0.0f) == divider);
+    CHECK(rac2_galaxy_frame_vertex(divider, 1, 4, NAN) == divider);
+    const uint32_t button = (uint32_t)-5860 & 0x3fffu;
+    CHECK((rac2_galaxy_frame_vertex(button, 1, 2, 0.109687753f) & 0x3fffu) == button);
+    CHECK((rac2_galaxy_frame_vertex(button, 1, 2, 0.109687753f) >> 14) == 769u);
+    /* A modified model outside the packed coordinate range is left intact. */
+    CHECK(rac2_galaxy_frame_vertex(8191, 1, 4, 0.109687753f) == 8191);
     rac2_galaxy_marker markers[21];
     for (unsigned i = 0; i < 21; ++i) {
         markers[i] = (rac2_galaxy_marker){-200, (int32_t)i, (int32_t)(i % 3), 18.0f};
@@ -51,6 +66,6 @@ int main(void) {
     rac2_mining_thrust_scale(&phase, 0x7000, 0x10C0, -0.5f);
     CHECK(rac2_mining_thrust_scale(&phase, 0x7000, 0x7000, -0.25f) == -0.25f);
     CHECK(phase.pending == 0);
-    puts("RAC2 per-planet counts and mining reverse controls passed");
+    puts("RAC2 map geometry, per-planet counts and mining reverse controls passed");
     return 0;
 }

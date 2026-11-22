@@ -29,14 +29,21 @@ reverse** keeps negative thrust negative by using the acceleration's magnitude
 on the second vector scale. Original restores each disc's behavior.
 
 **Galactic map layout**, on USA v1.01, uses the later 240-pixel map and its marker
-positions and sizes. PAL already has that map width and marker table. The
-temporary layout values are restored after each update/draw; neither these
-values nor the counter change the save. Greatest Hits keeps its original code.
+positions and sizes, a 186-pixel planet list, and the wider list divider in the
+frame. The original disc's frame vertices are repositioned during drawing;
+no replacement HUD asset is supplied. The crosshair stops at the map edge.
+PAL already has the revised layout. Temporary panel bounds, frame vertices
+and layout values are restored after each draw; neither these values nor the
+counter change the save. Greatest Hits keeps its original code.
 
 The shared wrappers are in host/gh_fixes.c. The source comparison is against
 rac2-decomp's three mining-vehicle updates and the GH ship counter
 (src/us2/game/0033FDD8-g8.c and src/us2/game/002B1C20.c). The pure counter,
-map-marker and thrust controls run in rac2_gh_fixes_test.
+map-marker, packed-frame and thrust controls run in rac2_gh_fixes_test.
+The frame comparison uses the owned discs' HUD.WAD models 0x88 and 0x89;
+the list uses panel 1 of the Galactic Map page (v1.01 0x0025E488,
+GH 0x0025E468). At runtime the page is identified by its relocated draw
+callback, so the correction also works in level overlays.
 
 ## Writing shared C
 

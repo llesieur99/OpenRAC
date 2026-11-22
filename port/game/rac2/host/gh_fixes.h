@@ -11,6 +11,39 @@ typedef struct rac2_galaxy_marker {
     float diameter;
 } rac2_galaxy_marker;
 
+/* Move the existing v1.01 frame's divider and button border. These are
+ * transformations of the player's HUD model, not replacement asset vertices.
+ * Packed HUD vertices contain signed 14-bit X/Z and a four-bit bone index. */
+static inline uint32_t rac2_galaxy_frame_vertex(uint32_t vertex, unsigned layer,
+                                               unsigned index, float scale) {
+    int move_x = 0, move_z = 0;
+    if (layer == 1) {
+        move_x = index == 4 || index == 5;
+        move_z = index == 2 || index == 3 || index == 5 || index == 6 ||
+                 index == 7 || index == 10;
+    } else if (layer == 2) {
+        move_x = (index >= 46 && index <= 54) || (index >= 58 && index <= 60) ||
+                 index == 80 || index == 81 || (index >= 83 && index <= 86) ||
+                 (index >= 89 && index <= 92);
+        move_z = (index >= 61 && index <= 63) || (index >= 66 && index <= 68) ||
+                 index == 73 || index == 74 || index == 78 || index == 79 ||
+                 (index >= 83 && index <= 88) || index == 91 || index == 92;
+    }
+    if (!(scale >= 0.05f && scale <= 0.2f)) {
+        return vertex;
+    }
+    int x = (int)(vertex & 0x3fffu), z = (int)((vertex >> 14) & 0x3fffu);
+    if (x & 0x2000) x -= 0x4000;
+    if (z & 0x2000) z -= 0x4000;
+    if (move_x) x += (int)lroundf(190.7f / scale);
+    if (move_z) z += (int)lroundf(84.3f / scale);
+    /* Two corners follow the raised junction's bevel. */
+    if (layer == 2 && (index == 51 || index == 52)) z -= (int)lroundf(1.43f / scale);
+    if (x < -8192 || x > 8191 || z < -8192 || z > 8191) return vertex;
+    return (vertex & 0xf0000000u) | ((uint32_t)x & 0x3fffu) |
+           (((uint32_t)z & 0x3fffu) << 14);
+}
+
 /* The revised map is 240 pixels wide rather than 302. PAL and GH have the
  * same 21 marker records; their Y coordinates and icon choices match v1.01.
  * Only v1.01 needs these horizontal positions and smaller markers. */
