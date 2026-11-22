@@ -122,7 +122,7 @@ jobs:
           # takes it under half an hour. The programs are built here and not in jobs of their own:
           # tools/bundle_standalone.py and tools/asm_part.py read them in the build's own folder.
           - name: windows
-            os: windows-latest
+            os: windows-2022
             timeout: 180
             python: x86_64-pc-windows-msvc
             python_sha256: 11ed9f8a6ac64fb1b5a55e40e305a6744a3f77a70863c8f8197a6e4349abc64a
