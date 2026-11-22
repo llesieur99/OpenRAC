@@ -151,14 +151,20 @@ typedef struct galaxy_frame {
 static void borrow_frame(gaddr widget, unsigned layer, galaxy_frame* saved) {
     saved->count = 0;
     const gaddr model = GREF(gaddr, widget + 0x40u);
-    if (!model) return;
+    if (!model) {
+        return;
+    }
     const unsigned expected = layer == 1 ? 12 : 121;
-    if (GREF(uint16_t, model) != expected || GREF(int32_t, model + 0x24u) != 1 ||
-        GREF(uint16_t, model + 6u) != 0 || GREF(uint16_t, model + 8u) != 0) return;
+    if (GREF(uint16_t, model) != expected || GREF(int32_t, model + 0x24u) != 1
+        || GREF(uint16_t, model + 6u) != 0 || GREF(uint16_t, model + 8u) != 0) {
+        return;
+    }
     /* Model loading scales this field by 0.0032116016; use its authored scale. */
     const float scale = GREF(float, model + 0xCu) / 0.0032116016f;
     saved->vertices = GREF(gaddr, model + 0x10u);
-    if (!saved->vertices) return;
+    if (!saved->vertices) {
+        return;
+    }
     saved->count = expected;
     memcpy(saved->saved, G(saved->vertices), expected * sizeof(uint32_t));
     for (unsigned i = 0; i < expected; ++i) {
@@ -168,7 +174,9 @@ static void borrow_frame(gaddr widget, unsigned layer, galaxy_frame* saved) {
 }
 
 static void restore_frame(const galaxy_frame* saved) {
-    if (saved->count) memcpy(G(saved->vertices), saved->saved, saved->count * sizeof(uint32_t));
+    if (saved->count) {
+        memcpy(G(saved->vertices), saved->saved, saved->count * sizeof(uint32_t));
+    }
 }
 
 static void borrow_galaxy(galaxy_layout* saved) {
