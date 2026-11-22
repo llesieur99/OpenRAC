@@ -690,7 +690,7 @@ jobs:
     name: Port / Windows
     needs: scope
     if: ${{ !cancelled() && needs.scope.outputs.docs_only != 'true' && needs.scope.outputs.port != 'false' }}
-    runs-on: windows-latest
+    runs-on: windows-2022
     timeout-minutes: 60
     env:
       CMAKE_C_COMPILER_LAUNCHER: ccache
