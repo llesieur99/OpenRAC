@@ -1,4 +1,6 @@
 # Pairs release_carry.py takes as they are: v1.01 function, this release's (in the release's names), the evidence.
+func_L08_0041EBF8	func_L08_00423EA0	The PAL mining vehicle update in src/pal/levels/shared/L08_00423EA0-g8.c; same thrust sequence, including both signed scales, with PAL timing constants. Host wrapper calls the original body.
+func_0033ED88	func_00340D78	The PAL ship statistics draw in src/pal/game/0033D838-g84.c; same three global counts with larger widgets and shifted label IDs. Host replacement uses release-specific fields and preserves the original when disabled.
 func_0027F640	func_0027FB48	FontPrintScaled: between func_0027F5B8 and func_0027F980 as in v1.01; the same calls in order (func_00283CE0 x3, func_0027E1A0 x3, func_00283CE0) after a new first call of func_002FC560; 832 bytes for 808
 func_L01_003CEDA0	func_L01_003D2EF0	rac2-decomp's func_PAL_L01_003D2EF0 (src/pal/levels/01_oozla/L01_003D2EF0.c), its PAL copy: the same C with this release's constants and calls, built to the release's bytes
 func_L01_003D2E50	func_L01_003D7098	rac2-decomp's func_PAL_L01_003D7098 (src/pal/levels/01_oozla/L01_003D7098.c), its PAL copy: the same C with this release's constants and calls, built to the release's bytes

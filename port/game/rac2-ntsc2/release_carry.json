@@ -1,17 +1,17 @@
 {
  "about": "How release_carry.py paired what the primary release's port names: what rests on less than the same code, and what it found nowhere.",
  "counts": {
-  "function: by hand": 12,
+  "function: by hand": 19,
   "function: called": 22,
-  "function: changed": 107,
+  "function: changed": 105,
   "function: found": 2,
-  "function: near": 54,
+  "function: near": 56,
   "function: not found": 2,
-  "function: same": 1005,
+  "function: same": 1024,
   "global: aligned": 8,
   "global: between": 19,
-  "global: exact": 104,
-  "global: the release's build": 109,
+  "global: exact": 105,
+  "global: the release's build": 116,
   "signature: v1.01's": 5
  },
  "functions": {
@@ -172,8 +172,13 @@
   ],
   "func_002DC900": [
    "func_002DD630",
-   "changed",
+   "near",
    "host C 0x002DC908"
+  ],
+  "func_002F9C80": [
+   "func_002FAB0C",
+   "near",
+   "libraries.tsv Vendor_DrawList"
   ],
   "func_002FAE68": [
    "func_002FBCEC",
@@ -239,6 +244,11 @@
    "func_0033D780",
    "changed",
    "RAC2_K TEXT_WIDESCREEN"
+  ],
+  "func_0033ED88": [
+   "func_0033FDD8",
+   "by hand",
+   "host C"
   ],
   "func_00341540": [
    "func_00342450",
@@ -432,8 +442,8 @@
   ],
   "func_L08_0041EBF8": [
    "func_L08_004201E0",
-   "near",
-   "from_assembly"
+   "by hand",
+   "host C"
   ],
   "func_L08_00435A78": [
    "func_L08_004370E0",

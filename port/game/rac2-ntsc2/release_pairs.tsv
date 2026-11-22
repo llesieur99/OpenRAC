@@ -1,4 +1,6 @@
 # Pairs release_carry.py takes as they are: v1.01 function, this release's (in the release's names), the evidence.
+func_L08_0041EBF8	func_L08_004201E0	The GH mining vehicle update in src/us2/levels/shared/L08_004201E0-g8.c; its second thrust scale already uses absolute acceleration. Host wrapper leaves GH unchanged.
+func_0033ED88	func_0033FDD8	The GH planet-specific statistics draw in src/us2/game/0033FDD8-g8.c; the original three global counters became a per-planet collected/total row. Host wrapper leaves GH unchanged.
 func_0027F640	func_0027FCB0	FontPrintScaled: between func_0027F5B8 and func_0027F980 as in v1.01; the same calls in order (func_00283CE0 x3, func_0027E1A0 x3, func_00283CE0) after a new first call of func_002FC560; 832 bytes for 808
 func_L01_003CEDA0	func_L01_003D01F8	rac2-decomp's func_US2_L01_003D01F8 (src/us2/levels/01_oozla/L01_003D01F8.c), its USA v2.00 copy: the same C with this release's constants and calls, built to the release's bytes
 func_L01_003D2E50	func_L01_003D42B0	rac2-decomp's func_US2_L01_003D42B0 (src/us2/levels/01_oozla/L01_003D42B0-sw.c), its USA v2.00 copy: the same C with this release's constants and calls, built to the release's bytes

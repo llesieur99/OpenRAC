@@ -20,6 +20,24 @@ port/game/rac2/differences.json the game fixes, the same for the three discs
 port/game/rac2-<release>/      hostgen.json and the release's tables (below)
 ```
 
+## Greatest Hits game fixes
+
+The earlier USA and PAL discs can use two of Greatest Hits' corrections through
+Game fixes: **Planet platinum bolts** shows the selected planet's collected/total
+count in the ship, including the Jamming Array in Maktar's count; **Mining vehicle
+reverse** keeps negative thrust negative by using the acceleration's magnitude
+on the second vector scale. Original restores each disc's behavior.
+
+**Galactic map layout**, on USA v1.01, uses the later 240-pixel map and its marker
+positions and sizes. PAL already has that map width and marker table. The
+temporary layout values are restored after each update/draw; neither these
+values nor the counter change the save. Greatest Hits keeps its original code.
+
+The shared wrappers are in host/gh_fixes.c. The source comparison is against
+rac2-decomp's three mining-vehicle updates and the GH ship counter
+(src/us2/game/0033FDD8-g8.c and src/us2/game/002B1C20.c). The pure counter,
+map-marker and thrust controls run in rac2_gh_fixes_test.
+
 ## Writing shared C
 
 - **Functions by v1.01's names**: `func_0027F538`, `func_L05_0041DF58`, `func_0027F640__game`.

@@ -28,6 +28,7 @@
 #define RAC2_ADDR_0x00152C26u 0x00152C26u /* versionmap: between */
 #define RAC2_ADDR_0x00152C64u 0x00152C64u /* versionmap: between */
 #define RAC2_ADDR_0x00152C68u 0x00152C68u /* versionmap: between */
+#define RAC2_ADDR_0x0019B278u 0x0019B278u /* versionmap: exact */
 #define RAC2_ADDR_0x001A7350u 0x001A7350u /* versionmap: exact */
 #define RAC2_ADDR_0x001A7354u 0x001A7354u /* versionmap: exact */
 #define RAC2_ADDR_0x001A79F0u 0x001A79F8u /* the release's build */
@@ -41,9 +42,14 @@
 #define RAC2_ADDR_0x001A8C64u 0x001A8C64u /* versionmap: exact */
 #define RAC2_ADDR_0x001A8CFCu 0x001A8D04u /* the release's build */
 #define RAC2_ADDR_0x001AA0F8u 0x001AA0F8u /* the same instruction of the paired function */
+#define RAC2_ADDR_0x001ADD98u 0x001ADD70u /* the release's build */
+#define RAC2_ADDR_0x001ADDACu 0x001ADD84u /* the release's build */
+#define RAC2_ADDR_0x001ADDB4u 0x001ADD8Cu /* the release's build */
+#define RAC2_ADDR_0x001ADDB8u 0x001ADD90u /* the release's build */
 #define RAC2_ADDR_0x001ADE00u 0x001ADDD8u /* the release's build */
 #define RAC2_ADDR_0x001ADE20u 0x001ADDF8u /* the release's build */
 #define RAC2_ADDR_0x001ADE28u 0x001ADE00u /* the release's build */
+#define RAC2_ADDR_0x001ADF90u 0x001ADF68u /* the release's build */
 #define RAC2_ADDR_0x001AE0E0u 0x001AE0B8u /* the release's build */
 #define RAC2_ADDR_0x001AE0F4u 0x001AE0CCu /* the release's build */
 #define RAC2_ADDR_0x001AE120u 0x001AE0F8u /* the same instruction of the paired function */
@@ -83,6 +89,7 @@
 #define RAC2_ADDR_0x001BA540u 0x001BA4C0u /* the release's build */
 #define RAC2_ADDR_0x001BADC0u 0x001BAD40u /* the release's build */
 #define RAC2_ADDR_0x001C2740u 0x001C26C0u /* the release's build */
+#define RAC2_ADDR_0x001C4FA0u 0x001C4F20u /* the release's build */
 #define RAC2_ADDR_0x001F1F40u 0x001F1EC0u /* the release's build */
 #define RAC2_ADDR_0x001F2840u 0x001F27C0u /* the release's build */
 #define RAC2_ADDR_0x00255330u 0x002552B0u /* the release's build */
@@ -91,6 +98,7 @@
 #define RAC2_ADDR_0x00263B50u 0x00263B10u /* the release's build */
 #define RAC2_ADDR_0x00263EF0u 0x00263EB0u /* the release's build */
 #define RAC2_ADDR_0x00264290u 0x00264250u /* the release's build */
+#define RAC2_ADDR_0x00265140u 0x00265100u /* the release's build */
 #define RAC2_ADDR_0x002652B0u 0x00265270u /* versionmap: between */
 #define RAC2_ADDR_0x0026EDE8u 0x0026EDE8u /* code */
 #define RAC2_ADDR_0x002DC908u 0x002DD630u /* code */
@@ -128,6 +136,10 @@
 #define RAC2_K_PAUSE_LIST_OFFSET 0x3C160 /* v1.01 0x3BE08; func_0029C4C0 as func_0029D2F8: 1 instructions */
 #define RAC2_K_PAUSE_LIST_WHICH 0x31C /* v1.01 0x2FC; func_00341610 as func_00342520: 1 instructions */
 #define RAC2_K_PAUSE_OPTIONS_ROWS 0x8 /* v1.01 0x8; func_00341610 as func_00342520: 3 instructions */
+#define RAC2_K_PLANET_INFO_COUNT_BUFFER 0x6C0 /* v1.01 0x600; by hand: func_US2_0033FDD8 formats the collected/total pair into self+0x6C0 (src/us2/game/0033FDD8-g8.c). */
+#define RAC2_K_PLANET_INFO_COUNT_LABEL 0x2C51 /* v1.01 0x2DBB; by hand: func_US2_0033FDD8 passes text ID 0x2C51 to func_00288FB8 before drawing the count label. */
+#define RAC2_K_PLANET_INFO_COUNT_WIDGET 0x470 /* v1.01 0x410; by hand: func_US2_0033FDD8 draws its first text widget at self+0x470; the changed one-row body does not align with all three v1.01 rows. */
+#define RAC2_K_PLANET_INFO_TEXT_POINTER 0x40 /* v1.01 0x40; func_00336A38 as func_00337860: 1 instructions */
 #define RAC2_K_TEXT_CAMERA_ROW 0x2C2E /* v1.01 0x2D98; func_0033C468 as func_0033D4B0: 1 instructions */
 #define RAC2_K_TEXT_CAMERA_TITLE 0x2C2E /* v1.01 0x2D98; func_0033C468 as func_0033D4B0: 1 instructions */
 #define RAC2_K_TEXT_LEFT_RIGHT 0x2C77 /* v1.01 0x2DE1; func_0033C738 as func_0033D780: 1 instructions */

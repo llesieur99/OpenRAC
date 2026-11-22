@@ -291,3 +291,8 @@ func_L04_0041E4A0	moby	Moby_RaceController_Update	hook	The hoverbike race's cont
 func_L18_003FD180	moby	Moby_MapperReturn_Update	hook	Damosel's return from the Giant Clank battle (class 3841): gives the Mapper (item 5) while it is not owned. A hook point for mods; the game's C with none.
 func_L18_00445BB0	moby	Moby_HypnomaticMaker_Update	hook	Damosel's Hypnomatic maker (class 4754): with the three parts sells the Hypnomatic (item 55); tests item 55's owned byte. A hook point for mods; the game's C with none.
 func_00314B5C	moby	Moby_NanotechBall_Update	hook	The nanotech orb's update (class 0x326): its pieces fly to the hero, each giving health as it lands (1, or 4 for the special orb). A hook point for mods, under the port's own wrap (NanotechBallUpdate): the mod's replacement or the game's C runs where the wrap calls the game's.
+func_L08_00423EA0	vehicle	MiningVehicleUpdate	wrap	Optional GH reverse correction scoped to this vehicle's thrust calculation; original when disabled (host/gh_fixes.c).
+func_002837E0	math	MiningThrustScale	wrap	Keep other vector scales unchanged; the mining update's second thrust scale uses the acceleration magnitude with the fix on.
+func_00340D78	menu	PlanetPlatinumCount	wrap	Optional GH per-planet platinum counter in the ship's planet page; original global statistics when disabled.
+func_0033D468	menu	GalacticMapLayoutUpdate	wrap	Optional GH map width and positions for v1.01; PAL and GH retain their original layout.
+func_0033D838	menu	GalacticMapLayoutDraw	wrap	Borrow the revised planet marker geometry during the v1.01 map draw and restore its table afterwards.
