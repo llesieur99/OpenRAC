@@ -8,7 +8,7 @@
       "name": "Galactic map layout",
       "discs": ["ntsc"],
       "original": "The original USA map stretches its background to 302 pixels and places the planet markers farther left, leaving less room for planet names.",
-      "port": "Use Greatest Hits' 240-pixel map, marker positions and sizes, and cursor and button offsets. Original restores v1.01's layout. PAL already has the narrower map and revised marker table.",
+      "port": "Use Greatest Hits' 240-pixel map, wider planet list, revised frame, marker positions and sizes, and cursor and button offsets. Keep the crosshair inside the map. Original restores v1.01's layout. PAL already has the revised layout.",
       "setting": {"key": "fix_galactic_map_layout", "default": true},
       "refs": ["port/game/rac2/host/gh_fixes.c", "port/game/rac2/host/gh_fixes.h"]
     },

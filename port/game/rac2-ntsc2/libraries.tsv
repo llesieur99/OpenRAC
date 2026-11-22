@@ -296,3 +296,5 @@ func_002838D0	math	MiningThrustScale	wrap	Keep other vector scales unchanged; th
 func_0033FDD8	menu	PlanetPlatinumCount	wrap	Optional GH per-planet platinum counter in the ship's planet page; original global statistics when disabled.
 func_0033C588	menu	GalacticMapLayoutUpdate	wrap	Optional GH map width and positions for v1.01; PAL and GH retain their original layout.
 func_0033C958	menu	GalacticMapLayoutDraw	wrap	Borrow the revised planet marker geometry during the v1.01 map draw and restore its table afterwards.
+func_002CCC18	menu	GalacticMapPanels	wrap	Borrow GH planet-list bounds only while drawing the v1.01 Galactic Map page.
+func_00290320	menu	GalacticMapCrosshair	wrap	Limit the horizontal crosshair to the map edge only inside the revised Galactic Map draw.

@@ -111,6 +111,66 @@ static int revised_galaxy(void) {
     return *fix != 0;
 }
 
+void func_002CBC58(int mode) {
+    /* The list is a separate panel, laid out before the map frame is drawn. */
+    if (!revised_galaxy()) {
+        func_002CBC58__game(mode);
+        return;
+    }
+    const gaddr page = GREF(gaddr, OPENRAC_DATA(0x001F2840u) + 0x14u);
+    const gaddr frame = page ? GREF(gaddr, page + 0xECu) : 0;
+    /* Resolve the callback, not a boot-only page address: levels relocate it. */
+    if (!frame || GREF(gaddr, frame + 4u) != OPENRAC_CODE(0x002D5920u)) {
+        func_002CBC58__game(mode);
+        return;
+    }
+    int32_t saved[4];
+    const int32_t bounds[4] = {125, 166, 186, 186};
+    memcpy(saved, G(page + 0x10u), sizeof(saved));
+    memcpy(G(page + 0x10u), bounds, sizeof(bounds));
+    func_002CBC58__game(mode);
+    memcpy(G(page + 0x10u), saved, sizeof(saved));
+}
+
+static int galaxy_line_right;
+
+void func_0028FAB8(int x0, int y0, int x1, int y1, int color, int flag) {
+    /* The original 304-pixel crosshair must stop at the narrowed map edge. */
+    if (galaxy_line_right && y0 == y1 && x1 > galaxy_line_right) {
+        x1 = galaxy_line_right;
+    }
+    func_0028FAB8__game(x0, y0, x1, y1, color, flag);
+}
+
+typedef struct galaxy_frame {
+    gaddr vertices;
+    uint32_t saved[121];
+    unsigned count;
+} galaxy_frame;
+
+static void borrow_frame(gaddr widget, unsigned layer, galaxy_frame* saved) {
+    saved->count = 0;
+    const gaddr model = GREF(gaddr, widget + 0x40u);
+    if (!model) return;
+    const unsigned expected = layer == 1 ? 12 : 121;
+    if (GREF(uint16_t, model) != expected || GREF(int32_t, model + 0x24u) != 1 ||
+        GREF(uint16_t, model + 6u) != 0 || GREF(uint16_t, model + 8u) != 0) return;
+    /* Model loading scales this field by 0.0032116016; use its authored scale. */
+    const float scale = GREF(float, model + 0xCu) / 0.0032116016f;
+    saved->vertices = GREF(gaddr, model + 0x10u);
+    if (!saved->vertices) return;
+    saved->count = expected;
+    memcpy(saved->saved, G(saved->vertices), expected * sizeof(uint32_t));
+    for (unsigned i = 0; i < expected; ++i) {
+        GREF(uint32_t, saved->vertices + i * 4u) =
+            rac2_galaxy_frame_vertex(saved->saved[i], layer, i, scale);
+    }
+}
+
+static void restore_frame(const galaxy_frame* saved) {
+    if (saved->count) memcpy(G(saved->vertices), saved->saved, saved->count * sizeof(uint32_t));
+}
+
 static void borrow_galaxy(galaxy_layout* saved) {
     memcpy(saved->markers, G(GALAXY_MARKERS), sizeof(saved->markers));
     saved->bar_x = GREF(float, GALAXY_BAR_X);
@@ -155,7 +215,16 @@ void func_0033B910(gaddr object) {
         return;
     }
     galaxy_layout saved;
+    galaxy_frame fill, border;
+    borrow_frame(object + 0x4Cu, 1, &fill);
+    borrow_frame(object + 0x98u, 2, &border);
+    const int previous_right = galaxy_line_right;
+    const gaddr position = func_00335E10(object + 0x2B0u);
+    galaxy_line_right = (int)(GREF(float, position) + 240.0f);
     borrow_galaxy(&saved);
     func_0033B910__game(object);
     restore_galaxy(&saved);
+    galaxy_line_right = previous_right;
+    restore_frame(&border);
+    restore_frame(&fill);
 }
