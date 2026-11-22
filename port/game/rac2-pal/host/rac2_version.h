@@ -138,6 +138,7 @@
 #define RAC2_K_PAUSE_OPTIONS_ROWS 0x7 /* v1.01 0x8; by hand: func_00341610 as func_00343690: addiu $v1, $zero, 0x7 at +0x5c for v1.01's 0x8 (the Options list's rows, list 1) */
 #define RAC2_K_PLANET_INFO_COUNT_BUFFER 0x6C0 /* v1.01 0x600; func_0033ED88 as func_00340D78: 1 instructions */
 #define RAC2_K_PLANET_INFO_COUNT_LABEL 0xBCC /* v1.01 0x2DBB; func_0033ED88 as func_00340D78: 1 instructions */
+#define RAC2_K_PLANET_INFO_COUNT_TITLE 0x578 /* v1.01 0x4E8; func_0033ED88 as func_00340D78: 1 instructions */
 #define RAC2_K_PLANET_INFO_COUNT_WIDGET 0x470 /* v1.01 0x410; func_0033ED88 as func_00340D78: 1 instructions */
 #define RAC2_K_PLANET_INFO_TEXT_POINTER 0x40 /* v1.01 0x40; func_00336A38 as func_00338730: 1 instructions */
 #define RAC2_K_TEXT_CAMERA_ROW 0xBA9 /* v1.01 0x2D98; func_0033C468 as func_0033E338: 1 instructions */

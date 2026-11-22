@@ -41,6 +41,7 @@ void func_00282F20(gaddr destination, gaddr source, float scale) {
 #define PLANET_INFO_COUNT_BUFFER RAC2_K(PLANET_INFO_COUNT_BUFFER, 0x600, func_0033ED88)
 #define PLANET_INFO_COUNT_LABEL RAC2_K(PLANET_INFO_COUNT_LABEL, 0x2DBB, func_0033ED88)
 #define PLANET_INFO_TEXT_POINTER RAC2_K(PLANET_INFO_TEXT_POINTER, 0x40, func_00336A38)
+#define PLANET_INFO_COUNT_TITLE RAC2_K(PLANET_INFO_COUNT_TITLE, 0x4E8, func_0033ED88)
 
 void func_0033ED88(gaddr object) {
     static const unsigned char* counter_fix;
@@ -82,6 +83,8 @@ void func_0033ED88(gaddr object) {
     func_00335E38(widget, x, y, 0.0f, 0.0f);
     func_00336A38(widget, text);
     func_00336A30(widget, 0);
+    /* The original heading is already the disc's localized "Platinum Bolt". */
+    func_00336A78(object + PLANET_INFO_COUNT_TITLE);
 }
 
 /* Borrow the revised geometry only for this screen's update/draw. Do not
