@@ -138,6 +138,7 @@
 #define RAC2_K_PAUSE_OPTIONS_ROWS 0x8 /* v1.01 0x8; func_00341610 as func_00342520: 3 instructions */
 #define RAC2_K_PLANET_INFO_COUNT_BUFFER 0x6C0 /* v1.01 0x600; by hand: func_US2_0033FDD8 formats the collected/total pair into self+0x6C0 (src/us2/game/0033FDD8-g8.c). */
 #define RAC2_K_PLANET_INFO_COUNT_LABEL 0x2C51 /* v1.01 0x2DBB; by hand: func_US2_0033FDD8 passes text ID 0x2C51 to func_00288FB8 before drawing the count label. */
+#define RAC2_K_PLANET_INFO_COUNT_TITLE 0x578 /* v1.01 0x4E8; by hand: func_US2_0033FDD8 draws the existing heading at self+0x578 after the collected/total row. */
 #define RAC2_K_PLANET_INFO_COUNT_WIDGET 0x470 /* v1.01 0x410; by hand: func_US2_0033FDD8 draws its first text widget at self+0x470; the changed one-row body does not align with all three v1.01 rows. */
 #define RAC2_K_PLANET_INFO_TEXT_POINTER 0x40 /* v1.01 0x40; func_00336A38 as func_00337860: 1 instructions */
 #define RAC2_K_TEXT_CAMERA_ROW 0x2C2E /* v1.01 0x2D98; func_0033C468 as func_0033D4B0: 1 instructions */
